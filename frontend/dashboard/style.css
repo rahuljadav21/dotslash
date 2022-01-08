@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .mini-nav{
@@ -8,7 +9,7 @@
     padding: 2vh;
     justify-content: space-between;
     flex-direction: row;
-    background: bisque;
+    background: #96caf382;
     align-items: center;
 }
 .user{
@@ -37,14 +38,14 @@
     padding: 7px;
 }
 .info{
+    font-weight: 700;
     background: bisque;
-    padding: 2px 16px;
+    padding: 7px 3rem;
     border-radius: 2vh;
     margin: 1vh;
 }
 .bmi{
     margin: 4vh;
-    border: 1px solid;
     padding: 2vh;
 }
 .bmi p span{
@@ -70,4 +71,10 @@ td{
     .bmiRange{
         width: 100%;
     }
+  }
+  .update-btn{
+    text-decoration: none;
+    color: black;
+    padding: 4px;
+    border-radius: 3px;
   }
