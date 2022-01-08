@@ -1,17 +1,16 @@
 const mongoose = require('mongoose')
 const foodSchema = require('./food');
 const planSchema = new mongoose.Schema({
-    breakFast:{
+    foodList:{
         type:[foodSchema],
     },
-    lunch:{
-        type:[foodSchema]
+    user:{
+        type:"String",
+        required:true
     },
-    dinner:{
-        type:[foodSchema]
-    },
-    other:{
-        type:[foodSchema]
+    calories :{
+        type:"Number",
+        required:true
     }
 })
 module.exports = mongoose.model('Plan',planSchema);

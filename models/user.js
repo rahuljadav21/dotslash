@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const foodSchema = require('./food')
 const userSchema = new mongoose.Schema({
     
     username:{
@@ -43,6 +44,9 @@ const userSchema = new mongoose.Schema({
     },
     idealWeight:{
         type:Number
+    },
+    dailyPlan:{
+        type:[foodSchema]
     },
     password:{
         type:String,
