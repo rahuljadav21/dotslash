@@ -43,12 +43,12 @@ connectDB()
 
 //common middleware
 app.use(cors());
-app.use(express.json());
+
 
 //routes
 app.get('/',async(req,res)=>{
     const user = await User.findById(req.session.userId);
-    res.send(`${user}`)
+    res.render('home.ejs',{user})
 })
 app.use('/user',userRoutes)
 app.use('/food',foodRoutes)

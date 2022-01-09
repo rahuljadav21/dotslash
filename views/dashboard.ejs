@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="#"><h3>Fit Me</h3></a>
+        </div>
+        <ul class="nav-list hide">
+            <li><a href="/">Home</a></li>
+            <li><a href="/food/plan">Today's Plan</a></li>
+            <li><a href="#">Exercise</a></li>
+            <li><a href="/user">Dashboard</a></li>
+        </ul>
+        <ul class="user hide">
+            <% if(!user) {%> 
+            <li><a href="/user/signup">Sign Up</a></li>
+            <li><a href="/user/login">Log In</a></li>
+            <% }else{  %> 
+             <li><a href="/user/logout">Log Out</a></li>
+             <% } %> 
+
+        </ul>
+            
+                <div class="burger">
+                    <div class="bar "></div>
+                    <div class="bar "></div>
+                    <div class="bar "></div>
+                </div>
+           
+           
+        
+        
+    </nav>
+    <div class="mini-nav">
+        <div >
+            <h3>
+            Dashboard
+        </h3>
+        </div>
+        <div>
+            <a href="/user/edit" class="update-btn">Update Profile</a>
+        </div>
+        <div class="user">
+            <span style="margin-right: 3vh">Hello <%=user.username%> </span>
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0 9c2.7 0 5.8 1.29 6 2v1H6v-.99c.2-.72 3.3-2.01 6-2.01m0-11C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <div class="details">
+            
+            <div class="info">
+                <Span>Calories Required per day:<%=user.calories%></Span>
+            </div>
+            <div class="info">
+                <Span>BMI : <%=user.bmi%></Span>
+            </div>
+        </div>
+        <div class="details">
+            <div class="info">
+                <Span>Ideal-Weight : <%=user.idealWeight%></Span>
+            </div>
+           
+            <div class="info">
+                <Span>Body-Fat Percentage :<%=user.bodyFat%></Span>
+            </div>
+        </div>
+    </div>
+<div class="information">
+    <div class="bmi">
+        <p>
+            <span>BMI :</span>
+            BMI is a measurement of a person's leanness or corpulence based on their height and weight, and is intended to quantify tissue mass.Specifically, the value obtained from the calculation of BMI is used to categorize whether a person is underweight, normal weight, overweight, or obese depending on what range the value falls between. 
+            <br>
+           
+            <img src="../images/bmi.jpg" class="bmiRange" alt="" >
+        </p>
+    </div>
+    <div class="bmi">
+        <p>
+            <span>Ideal Body-Weight :</span>
+            Knowing your ideal body weight is the first significant step you can take to be healthy.
+        </p>
+    </div>
+    <div class="bmi">
+        <p>
+            <span>Daily Calories Requirement:</span>
+            The number of calories you should eat per day depends on numerous factors, including your age, sex, height, current weight, activity level, and metabolic health, among several others.
+        </p>
+    </div>
+</div>
+</body>
+</html>

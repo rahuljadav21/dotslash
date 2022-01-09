@@ -1,7 +1,31 @@
 const mongoose = require('mongoose')
-const foodSchema = require('./food')
+const Schema = mongoose.Schema;
+const Food = require('./food');
+const foodSchema = new mongoose.Schema({
+    name:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    quantity:{
+        type:String,
+        required:true
+    },
+    type:{
+        type:String,
+        enum:['fruit','vegitable','drink','dairy','snack'],
+        required:true
+    },
+    calories:{
+        type:Number,
+        required:true
+    }
+})
 const userSchema = new mongoose.Schema({
-    
+    plan:[{
+        type:Schema.Types.ObjectId,
+        ref:'Food'
+    }],
     username:{
         type:String,
         required:true
@@ -44,9 +68,6 @@ const userSchema = new mongoose.Schema({
     },
     idealWeight:{
         type:Number
-    },
-    dailyPlan:{
-        type:[foodSchema]
     },
     password:{
         type:String,

@@ -2,13 +2,18 @@ const express = require('express');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const saltRounds =  10;
+const Food =require('../models/food')
 const router = express.Router();
 
 router.get('/',async(req,res)=>{
-
+const user = await User.findById(req.session.userId);
+if(!user){
+    res.redirect('/user/login')
+}
+res.render('dashboard.ejs',{user})
 })
 router.get('/signup',(req,res)=>{
-    res.send('Sign Up')
+    res.render('signup.ejs')
 })
 
 router.post('/signup',async(req,res)=>{
@@ -33,12 +38,12 @@ router.post('/signup',async(req,res)=>{
 
     if(user.gender=='Male'){
         user.calories = 10*w + 6.25*h -5*a +5;
-        user.bodyFat= 495/(1.0324-0.19077*Math.log10(wst-n) +0.15456*Math.log10(h)) - 450;
+        user.bodyFat= 1.2*user.bmi+0.23*user.age-16.2;
         user.idealWeight = 50+ 0.9*(h-152);
     }
     if(user.gender=='Female'){
         user.calories = 10*w + 6.25*h -5*a -161;
-        user.bodyFat= 495/(1.29579-0.35004*Math.log10(wst-n) +0.22100*Math.log10(h)) - 450;
+        user.bodyFat= 1.2*user.bmi+0.23*user.age-5.4;
         user.idealWeight = 45.5+ 0.9*(h-152);
     }
     
@@ -48,10 +53,11 @@ router.post('/signup',async(req,res)=>{
     user.password = hash
     await user.save()
     req.session.userId = user._id
+    
     res.redirect('/')
 })
 router.get('/login',(req,res)=>{
-    res.send('login')
+    res.render('login.ejs')
 })
 router.post('/login',async(req,res)=>{
     const user = await User.findOne({email : req.body.email});
@@ -61,13 +67,21 @@ router.post('/login',async(req,res)=>{
      const isAutherised = bcrypt.compareSync(req.body.password, user.password);
      if(isAutherised){
          req.session.userId = user._id
-         res.send(user)
+        res.redirect('/user')
        }else{
           res.send("Email or Password is Incorrect") 
        }
     }
    
  })
+
+router.get('/edit',async(req,res)=>{
+    const user = await User.findById(req.session.userId);
+    if(!user){
+        res.redirect('/user/login')
+    }
+    res.render('update.ejs',{user})
+})
 router.patch('/edit/:id',async(req,res)=>{
     const {id} = req.params;
     const user = await User.findOneAndUpdate(id,{
@@ -89,21 +103,21 @@ router.patch('/edit/:id',async(req,res)=>{
 
     if(user.gender=='Male'){
         user.calories = 10*w + 6.25*h -5*a +5;
-        user.bodyFat= 495/(1.0324-0.19077*Math.log10(wst-n) +0.15456*Math.log10(h)) - 450;
+        user.bodyFat= 1.2*user.bmi+0.23*user.age-16.2;
         user.idealWeight = 50+ 0.9*(h-152);
     }
     if(user.gender=='Female'){
         user.calories = 10*w + 6.25*h -5*a -161;
-        user.bodyFat= 495/(1.29579-0.35004*Math.log10(wst-n) +0.22100*Math.log10(h)) - 450;
+        user.bodyFat= 1.2*user.bmi+0.23*user.age-5.4;
         user.idealWeight = 45.5+ 0.9*(h-152);
     }
     await user.save();
-    res.send('edited succesfully')
+    res.redirect('/user')
 
 })
- router.post('/logout',async(req,res)=>{
+ router.get('/logout',async(req,res)=>{
     req.session.destroy()
-    res.send('logged out')
+    res.redirect('/')
 })
 
 module.exports = router;
