@@ -50,6 +50,9 @@ app.get('/',async(req,res)=>{
     const user = await User.findById(req.session.userId);
     res.render('home.ejs',{user})
 })
+app.get('/exersice',(req,res)=>{
+    res.render('exersice.ejs')
+})
 app.use('/user',userRoutes)
 app.use('/food',foodRoutes)
 app.listen(PORT,()=>{

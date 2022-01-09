@@ -111,6 +111,7 @@ router.patch('/edit/:id',async(req,res)=>{
         user.bodyFat= 1.2*user.bmi+0.23*user.age-5.4;
         user.idealWeight = 45.5+ 0.9*(h-152);
     }
+    user.plan = [];
     await user.save();
     res.redirect('/user')
 
